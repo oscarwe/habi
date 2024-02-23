@@ -67,6 +67,9 @@ class PropertyFilterService(BaseRESTHandler):
                     param_value = self.sanitize_string(value['value'])
                     key = self.sanitize_string(key)
                     query += f" AND {table}.{key} = '{param_value}'"
+            
+            query += """GROUP BY
+                        p.id, p.address, p.city, s.name, p.price, p.description"""
 
             # Execute the SQL query and get results
             cursor.execute(query)
