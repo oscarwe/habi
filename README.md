@@ -1,3 +1,5 @@
+SERVICIO DE FILTRADO
+
 Este proyecto se ha diseñado como un servicio web que proporciona filtrado de propiedades, con el objetivo de tener una arquitectura modular, escalable, seguro, reutilizable, legible y mantenible para posibles servicios futuros. 
 Descripcion mas detallada del proyecto y los detalles detras de su dieño:
 1. Clase BaseRESTHandler: Esta clase se ha creado como una clase base que maneja la lógica común necesaria para mas servicios web. Contiene métodos para la verificación del token JWT, la limpieza de cadenas, y la extracción de parámetros de las solicitudes HTTP, fue una clase pensada en la escalabilida y reutilizacion del codigo en caso de ser necesario pues sus funciones las pueden heredar otros posibles servicios promoviendo la modularidad y mantenibilidad del codigo.
@@ -18,3 +20,21 @@ Archivos:
 
 Como correrlo:
 Una vez descargado el repositorio, configura el entorno virtual en Python 3.9, instala las dependencias del archivo requirements.txt, ejecuta el script secret_key.py para obtener la llave JWT necesaria, copia la primera llave en el archivo settings.py en la variable SECRET_KEY y utiliza la segunda como token de autorización. Luego, ejecuta filter_property_service.py para iniciar el servidor. Finalmente, podrás acceder al servicio de filtrado de propiedades y realizar llamadas HTTP para obtener los resultados deseados.
+
+SERVICIO DE LIKES
+
+La tabla de likes se diseña de esta manera para garantizar que cada me gusta este asociado a un usuario registrado y a una propiedad. Al utilizar property_id y user_id como llaves foráneas establecemos una relación directa entre los likes, los usuarios y las propiedades, esto permite mantener un registro histórico de las interacciones de los usuarios con las propiedades, lo que facilita el análisis de datos y proporciona información valiosa para mejorar la experiencia del usuario y personalizar recomendaciones. Además al incluir el campo creation_date_time podemos registrar cuándo se realizó cada "me gusta" lo que añade contexto a los datos almacenados.
+
+Script creacion:
+CREATE TABLE Likes (
+    like_id INT AUTO_INCREMENT PRIMARY KEY,
+    property_id INT,
+    user_id INT,
+    creation_date_time DATETIME,
+    FOREIGN KEY (property_id) REFERENCES Property(property_id),
+    FOREIGN KEY (user_id) REFERENCES User(user_id)
+);
+
+SEGUNDO EJERCICIO
+
+En la carpeta segundo ejercicio se encuentra el script para este mismo, igual solamente se ejecuta como un script de python
